@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Sheet View</title>
+</head>
+<body>
+<h1>Live Data Sheet</h1>
+<table border="1">
+<tr>
+<th>Time</th>
+<th>Voltage</th>
+<th>Current</th>
+<th>Power</th>
+<th>Energy</th>
+<th>Frequency</th>
+<th>PF</th>
+</tr>
+
+{% for row in rows %}
+<tr>
+<td>{{ row.Time }}</td>
+<td>{{ row.Voltage }}</td>
+<td>{{ row.Current }}</td>
+<td>{{ row.Power }}</td>
+<td>{{ row.Energy }}</td>
+<td>{{ row.Frequency }}</td>
+<td>{{ row.PF }}</td>
+</tr>
+{% endfor %}
+
+</table>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Work Bay Live Energy Monitor</title>
+</head>
+<body>
+<h1>⚡ Work Bay Live Energy Monitor</h1>
+
+<h2>Live Reading</h2>
+<div id="live"></div>
+
+<hr>
+
+<h2>Previous Data</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Voltage</th>
+            <th>Current</th>
+            <th>Power</th>
+            <th>Energy</th>
+            <th>Frequency</th>
+            <th>PF</th>
+        </tr>
+    </thead>
+    <tbody id="table"></tbody>
+</table>
+
+<br>
+<a href="/download">Download CSV</a>
+<br>
+<a href="/live-sheet">Open Live Sheet</a>
+
+<script>
+function fetchData(){
+    fetch("/data")
+    .then(res => res.json())
+    .then(data => {
+
+        let live = data.latest;
+        if (!live) return;
+
+        document.getElementById("live").innerHTML = `
+            Time: ${live.Time}<br>
+            Voltage: ${live.Voltage} V<br>
+            Current: ${live.Current} A<br>
+            Power: ${live.Power} W<br>
+            Energy: ${live.Energy} kWh<br>
+            Frequency: ${live.Frequency} Hz<br>
+            PF: ${live.PF}
+        `;
+
+        let table = "";
+        data.history.forEach(row => {
+            table += `
+            <tr>
+                <td>${row.Time}</td>
+                <td>${row.Voltage}</td>
+                <td>${row.Current}</td>
+                <td>${row.Power}</td>
+                <td>${row.Energy}</td>
+                <td>${row.Frequency}</td>
+                <td>${row.PF}</td>
+            </tr>`;
+        });
+
+        document.getElementById("table").innerHTML = table;
+    });
+}
+
+setInterval(fetchData, 5000);
+fetchData();
+</script>
+</body>
+</html>
