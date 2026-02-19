@@ -16,7 +16,11 @@ DATA_FILE = "work_bay_data.csv"
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 if os.path.exists("credentials.json"):
-    creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+   import json
+   import os
+
+    creds_dict = json.loads(os.environ.get("GOOGLE_CREDENTIALS"))
+    creds = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
     client = gspread.authorize(creds)
     sheet = client.open_by_key("1cKFkT8cycikiK4rPTxJfJX-zgqmP5Kdcd3izSm8bXis").sheet1
 else:
