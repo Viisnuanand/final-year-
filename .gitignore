@@ -1,0 +1,4 @@
+credentials.json
+__pycache__/
+*.pyc
+work_bay_data.csv
