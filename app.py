@@ -18,7 +18,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 if os.path.exists("credentials.json"):
     creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
     client = gspread.authorize(creds)
-    sheet = client.open_by_key("YOUR_GOOGLE_SHEET_ID").sheet1
+    sheet = client.open_by_key("1cKFkT8cycikiK4rPTxJfJX-zgqmP5Kdcd3izSm8bXis").sheet1
 else:
     sheet = None
 
